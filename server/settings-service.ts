@@ -452,7 +452,7 @@ export class SettingsService {
 				subagentTemplates: this.templates.list().map((t) => localizeTemplate(t, this.host.getLocale?.())),
 				subagentDefaultTemplates: DEFAULT_TEMPLATES.map((t) => t.name),
 				subagentDefaultModel: this.settings.subagentDefaultModel ?? null,
-				subagentNestingEnabled: this.settings.subagentNestingEnabled ?? true,
+				subagentMaxDepth: this.settings.subagentMaxDepth ?? 0,
 				retryMaxAttempts: this.settings.retryMaxAttempts,
 				softCapTokens: this.settings.softCapTokens,
 				softCapByModel: { ...this.settings.softCapByModel },
@@ -579,8 +579,8 @@ export class SettingsService {
 		/** 宿主 UI 布局偏好（插件 UI 贡献 + 内置条目的隐藏/排序/分组；纯 UI，per-client）。 */
 		uiLayout?: UiLayoutPrefs;
 		subagentDefaultModel?: string | null;
-		/** 子代理嵌套派发开关（派生时实时读取，只影响之后新派生的子代理，无需 reload）。 */
-		subagentNestingEnabled?: boolean;
+		/** 子代理最大嵌套层数（0 = 不限制；派生时实时读取，只影响之后新派生的子代理，无需 reload）。 */
+		subagentMaxDepth?: number;
 		retryMaxAttempts?: number;
 		softCapTokens?: number;
 		softCapByModel?: Record<string, number>;
@@ -816,8 +816,9 @@ export class SettingsService {
 			const m = partial.subagentDefaultModel?.trim() ?? "";
 			this.settings.subagentDefaultModel = m ? m : null;
 		}
-		if (partial.subagentNestingEnabled !== undefined) {
-			this.settings.subagentNestingEnabled = partial.subagentNestingEnabled;
+		if (partial.subagentMaxDepth !== undefined) {
+			const n = Math.floor(Number(partial.subagentMaxDepth));
+			this.settings.subagentMaxDepth = Number.isFinite(n) && n > 0 ? n : 0;
 		}
 		if (partial.retryMaxAttempts !== undefined) {
 			// 出错重试次数：持久化 + 即时注入各会话（SDK 在每次退避前都重读

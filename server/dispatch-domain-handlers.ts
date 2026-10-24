@@ -655,7 +655,7 @@ export function handleSettingsMessage(msg: ClientMessage, cs: DispatchSession): 
 				visionBridgePromptMode: msg.visionBridgePromptMode,
 				visionBridgePrompt: msg.visionBridgePrompt,
 				subagentDefaultModel: (msg as { subagentDefaultModel?: string | null }).subagentDefaultModel,
-				subagentNestingEnabled: (msg as { subagentNestingEnabled?: boolean }).subagentNestingEnabled,
+				subagentMaxDepth: (msg as { subagentMaxDepth?: number }).subagentMaxDepth,
 				retryMaxAttempts: (msg as { retryMaxAttempts?: number }).retryMaxAttempts,
 				softCapTokens: (msg as { softCapTokens?: number }).softCapTokens,
 				softCapByModel: (msg as { softCapByModel?: Record<string, number> }).softCapByModel,

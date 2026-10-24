@@ -343,7 +343,7 @@ const PRESET_FIELD_KINDS = {
 	softCapTokens: "softCap",
 	softCapByModel: "softCapByModel",
 	subagentDefaultModel: "nullableString",
-	subagentNestingEnabled: "bool",
+	subagentMaxDepth: "number",
 	visionBridgeEnabled: "bool",
 	visionBridgeModel: "nullableString",
 	visionBridgePromptMode: "promptMode",

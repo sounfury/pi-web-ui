@@ -660,7 +660,7 @@ interface SettingsPatch {
 	planModePrompt?: string;
 	planModeDefaultPrompt?: string;
 	subagentDefaultModel?: string | null;
-	subagentNestingEnabled?: boolean;
+	subagentMaxDepth?: number;
 	retryMaxAttempts?: number;
 	softCapTokens?: number;
 	softCapByModel?: Record<string, number>;
@@ -6575,14 +6575,25 @@ export function SettingsModal({
 									</select>
 								</FieldRow>
 								{settings.subagentModels.length === 0 && <p className="set-hint">{t("subagentNoModels")}</p>}
-								{/* 只有 Pi 引擎接了这个开关；durable 也会显示本页但不处理该设置 */}
+								{/* 只有 Pi 引擎接了这个设置；durable 也会显示本页但不处理它 */}
 								{engine === "pi" && (
-									<ToggleRow
-										title={t("subagentNestingEnabled")}
-										tip={t("subagentNestingEnabledDesc")}
-										enabled={settings.subagentNestingEnabled ?? true}
-										onToggle={() => setPartial({ subagentNestingEnabled: !(settings.subagentNestingEnabled ?? true) })}
-									/>
+									<FieldRow label={t("subagentMaxDepth")} tip={t("subagentMaxDepthDesc")}>
+										<select
+											className="set-select"
+											value={settings.subagentMaxDepth ?? 0}
+											onChange={(e) => setPartial({ subagentMaxDepth: Number(e.target.value) })}
+										>
+											<option value={0}>{t("subagentMaxDepthUnlimited")}</option>
+											{/* 预设导入可能带来 >5 的值，并入列表免得下拉显示空白 */}
+											{[...new Set([1, 2, 3, 4, 5, settings.subagentMaxDepth ?? 0])]
+												.filter((n) => n > 0)
+												.map((n) => (
+													<option key={n} value={n}>
+														{n}
+													</option>
+												))}
+										</select>
+									</FieldRow>
 								)}
 
 								{/* ---- 编辑器：独立弹窗（新建 / 编辑同表单，列表页保持干净） ---------- */}

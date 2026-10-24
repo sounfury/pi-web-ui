@@ -1085,7 +1085,7 @@ export class ClientSession {
 					(sessionManager as unknown as { sessionDir: string }).sessionDir = ephemeralDir;
 				} catch {}
 			}
-			const noSpawnTools = !persist && this.settingsSvc.current.subagentNestingEnabled === false;
+			const noSpawnTools = !persist && this.subagentAtDepthLimit(parentId ?? this.activeId ?? undefined);
 			const runtime = await createAgentSessionRuntime(
 				this.makeRuntimeFactory(terminals, apply, conversationId, undefined, undefined, noSpawnTools),
 				{
@@ -1250,6 +1250,23 @@ export class ClientSession {
 		if (this.convs.has(convId)) return this.getSubagentSnapshot(convId);
 		const found = this.findSubagentOwner?.(convId);
 		return found && found.session !== this ? found.session.getSubagentSnapshot(found.convId) : undefined;
+	}
+
+	/** 由该父对话派出的子代理处在主对话下第几层：沿 parentId 链数祖先（主对话派的 = 1）。 */
+	private subagentDepthUnder(parentId: string | undefined): number {
+		let depth = 0;
+		const seen = new Set<string>();
+		for (let id = parentId; id && !seen.has(id); id = this.subagentSnapshotAnywhere(id)?.parentId) {
+			seen.add(id);
+			depth++;
+		}
+		return depth;
+	}
+
+	/** 设了嵌套上限（subagentMaxDepth > 0）且已到上限那一层的内存子代理，创建时不注入派发工具。 */
+	private subagentAtDepthLimit(parentId: string | undefined): boolean {
+		const max = this.settingsSvc.current.subagentMaxDepth ?? 0;
+		return max > 0 && this.subagentDepthUnder(parentId) >= max;
 	}
 
 	/** B20：convId 当前由哪个 ClientSession 持有（本会话优先；查不到兜底本会话）。 */
@@ -3308,8 +3325,8 @@ export class ClientSession {
 					// 空白名单 = 跟随主会话（插件工具照常进入子代理）。
 					...(apply && apply.enabledExtensions.length > 0 ? [] : this.enabledPluginToolDefs()),
 					// 第一方子代理工具（spawn/get_result/steer/list/stop）。子代理会话
-					// 默认也注册了它们，因此可自然嵌套派发；设置关掉 subagentNestingEnabled
-					// 时 noSpawnTools=true，连同下面的 delegate_task 一起不注入。host 按 ownerId 包装：子代理的
+					// 默认也注册了它们，因此可自然嵌套派发；设置了 subagentMaxDepth 且子代理
+					// 已到上限层时 noSpawnTools=true，连同下面的 delegate_task 一起不注入。host 按 ownerId 包装：子代理的
 					// 父对话 = 真正调用 spawn 的那个会话（本 runtime 所属会话），而不是
 					// 派发瞬间的 active——后台对话继续产出时用户可能已切到别的项目，用
 					// activeId 会把孩子记到无关会话名下、沉到别的组/底部（issue #95）。
@@ -7033,7 +7050,7 @@ export class ClientSession {
 		scmCommitMsgPromptMode?: PromptMode;
 		scmCommitMsgPrompt?: string;
 		subagentDefaultModel?: string | null;
-		subagentNestingEnabled?: boolean;
+		subagentMaxDepth?: number;
 		retryMaxAttempts?: number;
 		softCapTokens?: number;
 		softCapByModel?: Record<string, number>;
@@ -9612,7 +9629,7 @@ export class ClientSession {
 							conv.id,
 							undefined,
 							undefined,
-							conv.isSubagent && this.settingsSvc.current.subagentNestingEnabled === false,
+							conv.isSubagent && this.subagentAtDepthLimit(conv.parentId),
 						),
 						{
 							cwd: sessionBaseDir,
