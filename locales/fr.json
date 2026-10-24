@@ -1804,6 +1804,8 @@
 		"subagentDefaultModelLabel": "Modèle par défaut des sous-agents",
 		"subagentFollowMain": "Suivre le modèle actuel de la discussion principale",
 		"subagentDefaultModelHint": "Modèle de repli de tous les sous-agents (le modèle du template et le paramètre model de subagent_spawn priment) ; ne change pas le modèle principal.",
+		"subagentNestingEnabled": "Allow subagents to spawn subagents",
+		"subagentNestingEnabledDesc": "On (default): subagents can keep dispatching via subagent / delegate_task. Off: subagents spawned afterwards get neither tool, so only the main conversation dispatches; persistent conversations are unaffected.",
 		"subagentNoModels": "Aucun modèle utilisable (clé API d'un fournisseur requise) — les sous-agents suivront le modèle principal.",
 		"tplNamePlaceholder": "Nom du modèle (référencé par l'IA via le paramètre template de subagent_spawn)…",
 		"tplDescriptionPlaceholder": "Description (l'IA s'en sert pour juger du cas d'usage)…",

@@ -70,6 +70,7 @@ export const PRESET_FIELD_GROUPS = {
 		"softCapTokens",
 		"softCapByModel",
 		"subagentDefaultModel",
+		"subagentNestingEnabled",
 		"visionBridgeEnabled",
 		"visionBridgeModel",
 		"visionBridgePromptMode",
@@ -354,6 +355,12 @@ export const PRESET_FIELD_META = {
 		labelEn: "Subagent Default Model",
 		hintZh: "派生子代理时优先使用的专用模型（留空跟随主对话）",
 		hintEn: "Dedicated model for subagents (empty to follow main chat)",
+	},
+	subagentNestingEnabled: {
+		labelZh: "子代理嵌套派发",
+		labelEn: "Subagent Nesting",
+		hintZh: "允许子代理再派发子代理（关闭后只有主对话能派发）",
+		hintEn: "Allow subagents to spawn subagents (off = only the main chat dispatches)",
 	},
 	visionBridgeEnabled: {
 		labelZh: "视觉桥 (看图转写)",

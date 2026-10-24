@@ -1804,6 +1804,8 @@
 		"subagentDefaultModelLabel": "Модель субагентов по умолчанию",
 		"subagentFollowMain": "Следовать текущей модели основного диалога",
 		"subagentDefaultModelHint": "Резервная модель для всех субагентов (модель, указанная в шаблоне, и параметр model в subagent_spawn имеют более высокий приоритет); не меняет модель основного диалога.",
+		"subagentNestingEnabled": "Allow subagents to spawn subagents",
+		"subagentNestingEnabledDesc": "On (default): subagents can keep dispatching via subagent / delegate_task. Off: subagents spawned afterwards get neither tool, so only the main conversation dispatches; persistent conversations are unaffected.",
 		"subagentNoModels": "Пока нет доступных моделей (сначала настройте API Key поставщика) — субагенты будут следовать модели основного диалога.",
 		"tplNamePlaceholder": "Имя шаблона (ИИ ссылается на него параметром template в subagent_spawn)…",
 		"tplDescriptionPlaceholder": "Описание (ИИ определяет по нему подходящие сценарии)…",

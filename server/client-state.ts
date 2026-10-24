@@ -415,6 +415,8 @@ export interface ClientSettings {
 	skillsCatalogBudget: number;
 	/** 子代理默认模型 ("provider/id")；null/未设 = 跟随主对话当前模型。不改会话右侧栏的模型。 */
 	subagentDefaultModel?: string | null;
+	/** 允许子代理再派发子代理（默认开）。关 → 新派生的内存子代理不注入 subagent / delegate_task。 */
+	subagentNestingEnabled?: boolean;
 	/** 大模型 API 出错自动重试次数（默认 6；0 = 失败即停）。SDK
 	 *  settings.retry.maxRetries 的按客户端覆盖（SDK 默认 3），经
 	 *  applyOverrides 注入各会话的 SettingsManager（session.reload()
@@ -1154,6 +1156,7 @@ export class ClientStateStore {
 			planModePromptMode: stored?.planModePromptMode === "replace" ? "replace" : "append",
 			planModePrompt: stored?.planModePrompt ?? "",
 			subagentDefaultModel: stored?.subagentDefaultModel ?? null,
+			subagentNestingEnabled: stored?.subagentNestingEnabled ?? true,
 			retryMaxAttempts: normalizeRetryMaxAttempts(stored?.retryMaxAttempts),
 			softCapTokens: normalizeSoftCapTokens(stored?.softCapTokens),
 			softCapByModel: normalizeSoftCapByModel(stored?.softCapByModel),
@@ -1245,6 +1248,7 @@ export class ClientStateStore {
 				"subagentDefaultModel" in settings
 					? (settings.subagentDefaultModel ?? null)
 					: (cur.subagentDefaultModel ?? null),
+			subagentNestingEnabled: settings.subagentNestingEnabled ?? cur.subagentNestingEnabled ?? true,
 			retryMaxAttempts: normalizeRetryMaxAttempts(
 				settings.retryMaxAttempts ?? cur.retryMaxAttempts ?? DEFAULT_RETRY_MAX_ATTEMPTS,
 			),

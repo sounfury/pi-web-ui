@@ -1804,6 +1804,8 @@
 		"subagentDefaultModelLabel": "サブエージェントのデフォルト model",
 		"subagentFollowMain": "メイン会話の現在の model に従います",
 		"subagentDefaultModelHint": "すべてのサブエージェントのフォールバック model です（テンプレート指定の model や subagent_spawn の model パラメータが優先されます）。メイン会話の model は変更されません。",
+		"subagentNestingEnabled": "Allow subagents to spawn subagents",
+		"subagentNestingEnabledDesc": "On (default): subagents can keep dispatching via subagent / delegate_task. Off: subagents spawned afterwards get neither tool, so only the main conversation dispatches; persistent conversations are unaffected.",
 		"subagentNoModels": "利用可能な model はまだありません（先にプロバイダーの API Key を設定してください）——サブエージェントはメイン会話の model に従います。",
 		"tplNamePlaceholder": "テンプレート名（AIは subagent_spawn の template パラメータで参照します）…",
 		"tplDescriptionPlaceholder": "概要（AIはこれを基に適用場面を判断します）…",

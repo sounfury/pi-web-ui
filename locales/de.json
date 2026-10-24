@@ -1804,6 +1804,8 @@
 		"subagentDefaultModelLabel": "Standardmodell für Subagenten",
 		"subagentFollowMain": "Aktuellem Modell der Hauptunterhaltung folgen",
 		"subagentDefaultModelHint": "Ausweichmodell für alle Subagenten (das in der Vorlage angegebene Modell und der model-Parameter von subagent_spawn haben höhere Priorität); ändert das Modell der Hauptunterhaltung nicht.",
+		"subagentNestingEnabled": "Allow subagents to spawn subagents",
+		"subagentNestingEnabledDesc": "On (default): subagents can keep dispatching via subagent / delegate_task. Off: subagents spawned afterwards get neither tool, so only the main conversation dispatches; persistent conversations are unaffected.",
 		"subagentNoModels": "Noch keine verwendbaren Modelle (konfigurieren Sie zuerst einen Anbieter-API-Key) – Subagenten folgen dem Modell der Hauptunterhaltung.",
 		"tplNamePlaceholder": "Vorlagenname (von der KI über den template-Parameter von subagent_spawn referenziert) …",
 		"tplDescriptionPlaceholder": "Beschreibung (die KI beurteilt danach den passenden Einsatzbereich) …",

@@ -1804,6 +1804,8 @@
 		"subagentDefaultModelLabel": "Alt ajan varsayılan modeli",
 		"subagentFollowMain": "Ana konuşmanın geçerli modelini izle",
 		"subagentDefaultModelHint": "Tüm alt ajanlar için yedek model (şablonun kendi modeli ve subagent_spawn'ın model parametresi önceliklidir); ana konuşmanın modelini değiştirmez.",
+		"subagentNestingEnabled": "Allow subagents to spawn subagents",
+		"subagentNestingEnabledDesc": "On (default): subagents can keep dispatching via subagent / delegate_task. Off: subagents spawned afterwards get neither tool, so only the main conversation dispatches; persistent conversations are unaffected.",
 		"subagentNoModels": "Henüz kullanılabilir model yok (önce bir sağlayıcı API anahtarı yapılandırın) — alt ajanlar ana konuşmanın modelini izleyecek.",
 		"tplNamePlaceholder": "Şablon adı (AI, subagent_spawn'ın template parametresiyle başvurur)…",
 		"tplDescriptionPlaceholder": "Kısa açıklama (AI bunu hangi durumda kullanılacağını anlamak için okur)…",

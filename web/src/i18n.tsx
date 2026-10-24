@@ -1994,6 +1994,9 @@ export const zh = {
 	subagentFollowMain: "跟随主对话当前模型",
 	subagentDefaultModelHint:
 		"所有子代理的兜底模型（模板里指定的模型和 subagent_spawn 的 model 参数优先级更高）；不改主对话模型。",
+	subagentNestingEnabled: "允许子代理再派发子代理",
+	subagentNestingEnabledDesc:
+		"开（默认）：子代理也能用 subagent / delegate_task 继续派发。关：之后新派生的子代理不再注入这两个工具，只有主对话能派发；持久化对话不受影响。",
 	subagentNoModels: "暂无可用的模型（需要先配置服务商 API Key）——子代理将跟随主对话模型。",
 	tplNamePlaceholder: "模板名（AI 用 subagent_spawn 的 template 参数引用）…",
 	tplDescriptionPlaceholder: "简介（AI 据此判断适用场景）…",
@@ -4399,6 +4402,9 @@ export const en: Record<keyof typeof zh, string> = {
 	subagentFollowMain: "Follow the main conversation's current model",
 	subagentDefaultModelHint:
 		"Fallback model for all subagents (a template's own model and the subagent_spawn model param take priority); does not change the main conversation's model.",
+	subagentNestingEnabled: "Allow subagents to spawn subagents",
+	subagentNestingEnabledDesc:
+		"On (default): subagents can keep dispatching via subagent / delegate_task. Off: subagents spawned afterwards get neither tool, so only the main conversation dispatches; persistent conversations are unaffected.",
 	subagentNoModels:
 		"No usable models yet (configure a provider API key first) — subagents will follow the main conversation's model.",
 	tplNamePlaceholder: "Template name (referenced by AI via subagent_spawn's template param)…",

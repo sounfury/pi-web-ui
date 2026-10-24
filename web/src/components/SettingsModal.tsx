@@ -660,6 +660,7 @@ interface SettingsPatch {
 	planModePrompt?: string;
 	planModeDefaultPrompt?: string;
 	subagentDefaultModel?: string | null;
+	subagentNestingEnabled?: boolean;
 	retryMaxAttempts?: number;
 	softCapTokens?: number;
 	softCapByModel?: Record<string, number>;
@@ -6574,6 +6575,12 @@ export function SettingsModal({
 									</select>
 								</FieldRow>
 								{settings.subagentModels.length === 0 && <p className="set-hint">{t("subagentNoModels")}</p>}
+								<ToggleRow
+									title={t("subagentNestingEnabled")}
+									tip={t("subagentNestingEnabledDesc")}
+									enabled={settings.subagentNestingEnabled ?? true}
+									onToggle={() => setPartial({ subagentNestingEnabled: !(settings.subagentNestingEnabled ?? true) })}
+								/>
 
 								{/* ---- 编辑器：独立弹窗（新建 / 编辑同表单，列表页保持干净） ---------- */}
 								{tplDraft && (

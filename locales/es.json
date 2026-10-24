@@ -1804,6 +1804,8 @@
 		"subagentDefaultModelLabel": "Modelo predeterminado de subagentes",
 		"subagentFollowMain": "Seguir el modelo actual de la conversación principal",
 		"subagentDefaultModelHint": "Modelo de reserva para todos los subagentes (el modelo indicado en la plantilla y el parámetro model de subagent_spawn tienen mayor prioridad); no cambia el modelo de la conversación principal.",
+		"subagentNestingEnabled": "Allow subagents to spawn subagents",
+		"subagentNestingEnabledDesc": "On (default): subagents can keep dispatching via subagent / delegate_task. Off: subagents spawned afterwards get neither tool, so only the main conversation dispatches; persistent conversations are unaffected.",
 		"subagentNoModels": "No hay modelos disponibles por ahora (primero debe configurar la API Key del proveedor) — los subagentes seguirán el modelo de la conversación principal.",
 		"tplNamePlaceholder": "Nombre de la plantilla (la IA la referencia con el parámetro template de subagent_spawn)…",
 		"tplDescriptionPlaceholder": "Descripción (la IA la usa para juzgar el escenario aplicable)…",
