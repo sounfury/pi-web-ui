@@ -6575,12 +6575,15 @@ export function SettingsModal({
 									</select>
 								</FieldRow>
 								{settings.subagentModels.length === 0 && <p className="set-hint">{t("subagentNoModels")}</p>}
-								<ToggleRow
-									title={t("subagentNestingEnabled")}
-									tip={t("subagentNestingEnabledDesc")}
-									enabled={settings.subagentNestingEnabled ?? true}
-									onToggle={() => setPartial({ subagentNestingEnabled: !(settings.subagentNestingEnabled ?? true) })}
-								/>
+								{/* 只有 Pi 引擎接了这个开关；durable 也会显示本页但不处理该设置 */}
+								{engine === "pi" && (
+									<ToggleRow
+										title={t("subagentNestingEnabled")}
+										tip={t("subagentNestingEnabledDesc")}
+										enabled={settings.subagentNestingEnabled ?? true}
+										onToggle={() => setPartial({ subagentNestingEnabled: !(settings.subagentNestingEnabled ?? true) })}
+									/>
+								)}
 
 								{/* ---- 编辑器：独立弹窗（新建 / 编辑同表单，列表页保持干净） ---------- */}
 								{tplDraft && (
